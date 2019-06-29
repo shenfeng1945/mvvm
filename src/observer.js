@@ -1,3 +1,12 @@
+import Subject from './subject';
+
+export default class Observer {
+    
+}
+
+
+
+
 function observe(data) {
     if (!data || typeof data !== 'object') return;
     // 遍历属性
@@ -7,7 +16,7 @@ function observe(data) {
 }
 
 function defineReactive(data, key, val) {
-    let dep = new Dep();
+    let subject = new Subject();
     observe(val);
     Object.defineProperty(data, key, {
         configurable: false,
@@ -20,19 +29,10 @@ function defineReactive(data, key, val) {
             if (val === newVal) return;
             console.log(`数据变化了，${key}属性值由 ${val} 变为了 ${newVal}`);
             val = newVal
-            dep.notify();
+            subject.notify();
         }
     })
 }
 
-function Dep() {
-    this.subs = [];
-}
-Dep.prototype.addSubs = function (sub) {
-    this.subs.push(sub);
-}
-Dep.prototype.notify = function () {
-    this.subs.forEach(sub => {
-        sub.update()
-    })
-}
+
+export {observe};

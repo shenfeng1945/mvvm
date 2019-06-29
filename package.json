@@ -1,0 +1,8 @@
+{
+  "name": "mvvm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:shenfeng1945/mvvm.git",
+  "author": "shenfeng1945 <823902826@qq.com>",
+  "license": "MIT"
+}
