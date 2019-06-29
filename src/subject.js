@@ -1,10 +1,10 @@
-let id = 0
+let id = 0;
 export default class Subject {
     constructor() {
         this.id = id++;
         this.observers = [];
     }
-    addSubs(sub) {
+    addObservers(sub) {
         this.observers.push(sub);
     }
     removeObserver(observer){

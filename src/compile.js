@@ -4,11 +4,7 @@ export default class Compile {
   constructor(vm) {
     this.vm = vm;
     this.node = vm.$el;
-    // if (this.node) {
-      // this.$fragment = this.node2Fragment(this.node);
-      this.compile();
-      // this.$el.appendChild(this.$fragment);
-    // }
+    this.compile();
   }
   compile() {
     this.traverse(this.node)
@@ -19,7 +15,10 @@ export default class Compile {
     while(match = reg.exec(node.nodeValue)){
       const raw = match[0]; // '{{name}}'
       const key = match[1].trim(); // 'name'
-      node.nodeValue = node.nodeValue.replace(raw, this.vm[key])
+      node.nodeValue = node.nodeValue.replace(raw, this.vm[key]);
+      new Observer(this.vm, key, function(val,oldVal){
+        node.nodeValue = node.nodeValue.replace(oldVal, val);
+      })
     }
   }
   compileNode(node){
@@ -27,23 +26,11 @@ export default class Compile {
   }
   traverse(node) {
     if(this.isElementNode(node)){
-       this.compileNode(node)
+       this.compileNode(node);
        node.childNodes.forEach(child => this.traverse(child))
     }else if(this.isTextNode(node)){
       this.compileText(node)
     }
-    // let childNodes = this.$fragment.childNodes;
-    // let me = this;
-    // Array.from(childNodes).forEach(node => {
-    //   let text = node.textContent;
-    //   let textReg = /\{\{(.*)\}\}/;
-    //   if (this.isElementNode(node)) {
-
-    //   } else if (this.isTextNode(node) && textReg.test(text)) {
-    //     let name = RegExp.$1.trim()
-    //     node.textContent = me.$vm.$options.data[name]
-    //   }
-    // })
   }
   isElementNode(el) {
     return el.nodeType === 1
