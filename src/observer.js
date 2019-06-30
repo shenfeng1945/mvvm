@@ -53,7 +53,6 @@ function defineReactive(data, key, val) {
         get() {
             if(currentObserver){
                 // 开启订阅
-                console.log('开启订阅')
                 currentObserver.subscribeTo(subject)
             }
             return val

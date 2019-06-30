@@ -4,5 +4,12 @@
   "main": "index.js",
   "repository": "git@github.com:shenfeng1945/mvvm.git",
   "author": "shenfeng1945 <823902826@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html --no-cache",
+    "build": "parcel build ./src/index.js --no-cache"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
 }
