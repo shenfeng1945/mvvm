@@ -10,7 +10,13 @@
 
 <body>
     <div id="app">
-        {{name}} hhh
+        <div>
+           name: {{name}}  
+        </div>
+        <div>
+           <input type="text" v-model="name">
+        </div>
+        <button @click="onClick">change name</button>
     </div>
 </body>
 <script src="./src/index.js"></script>
@@ -19,15 +25,13 @@
         el: '#app',
         data: {
             name: 'allen',
-            extra: {
-                age: 19,
-                sex: 'male'
+        },
+        methods: {
+            onClick(){
+              this.name = 'curry'
             }
         }
     });
-    setTimeout(() => {
-        mvvm.name = 'hello'
-    },1000)
 </script>
 
 </html>

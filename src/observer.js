@@ -1,4 +1,4 @@
-import Subject from './subject';
+import Watcher from './watcher';
 
 let currentObserver = null;
 
@@ -28,6 +28,7 @@ export default class Observer {
         const val = this.getValue();
         if(oldVal !== val){
             this.cb(val, oldVal)
+            this.value = val;
         }
     }
 }
@@ -44,15 +45,15 @@ function observe(data) {
 }
 
 function defineReactive(data, key, val) {
-    let subject = new Subject();
+    let subject = new Watcher();
     observe(val);
     Object.defineProperty(data, key, {
         configurable: false,
         enumerable: true,
         get() {
-            // Dep.target && dep.addDep(Dep.target);
             if(currentObserver){
                 // 开启订阅
+                console.log('开启订阅')
                 currentObserver.subscribeTo(subject)
             }
             return val
@@ -61,6 +62,7 @@ function defineReactive(data, key, val) {
             if (val === newVal) return;
             console.log(`数据变化了，${key}属性值由 ${val} 变为了 ${newVal}`);
             val = newVal;
+            // 通知数据更新了
             subject.notify();
         }
     })
